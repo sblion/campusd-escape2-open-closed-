@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>PROJECT CHOJUNE</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        font-family: 'Arial', sans-serif;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(120deg, #2c2f6e, #000000 40%, #001a4d);
+    }
+
+    .container {
+        text-align: center;
+        backdrop-filter: blur(10px);
+    }
+
+    h1 {
+        font-size: 28px;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+    }
+
+    input {
+        padding: 12px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        text-align: center;
+        width: 200px;
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: #4a90e2;
+        color: white;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #357ABD;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .success {
+        margin-top: 30px;
+        font-size: 22px;
+        color: #a8ffcc;
+        line-height: 1.6;
+    }
+
+    .notice {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #cccccc;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- 👉 입력 UI 묶기 -->
+    <div id="inputSection">
+        <h1>FINAL ACCESS CODE</h1>
+        <input type="text" id="codeInput" placeholder="CODE 입력">
+        <br>
+        <button onclick="checkCode()">확인</button>
+    </div>
+
+    <!-- 결과 영역 -->
+    <div id="result" class="hidden success"></div>
+
+    <!-- 설문 -->
+    <div id="surveySection" class="hidden">
+        <div class="notice">
+            이어서 몰입형을 진행하실 수 있습니다. 예약된 시간에 맞춰서, 몰입형 입장구역에서 대기해주세요.
+        </div>
+    </div>
+
+</div>
+
+<script>
+function checkCode() {
+    const input = document.getElementById("codeInput").value.toUpperCase();
+    const result = document.getElementById("result");
+    const survey = document.getElementById("surveySection");
+    const inputSection = document.getElementById("inputSection");
+
+    if (input === "CLEON") {
+        // 👉 기존 UI 숨기기
+        inputSection.classList.add("hidden");
+
+        // 👉 결과 표시
+        result.innerHTML = "우주인 선발 시험 합격을 축하합니다!";
+        result.classList.remove("hidden");
+
+        // 👉 설문 표시
+        survey.classList.remove("hidden");
+
+    } else {
+        result.innerHTML = "❌ 잘못된 코드입니다.";
+        result.classList.remove("hidden");
+    }
+}
+
+function goSurvey() {
+    window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSeusywl-VRwRqHSdxMsJstXEGMm0GxWDOyaJ_od-Fz4bHYVhw/viewform";
+}
+</script>
+
+</body>
+</html>
