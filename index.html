@@ -3,117 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <title>PROJECT CHOJUNE</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+
 <style>
     body {
         margin: 0;
         height: 100vh;
-        font-family: 'Arial', sans-serif;
+        font-family: 'Noto Sans KR', sans-serif;
         color: white;
         display: flex;
         justify-content: center;
         align-items: center;
         background: linear-gradient(120deg, #2c2f6e, #000000 40%, #001a4d);
+        background-attachment: fixed;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* 🌠 반짝이는 별 배경 */
+    body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+            radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+            radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+        background-size: 550px 550px, 350px 350px, 250px 250px;
+        background-position: 0 0, 40px 60px, 130px 270px;
+        animation: twinkleBackground 10s linear infinite;
+        z-index: 1;
+        opacity: 0.8;
+    }
+
+    /* 🧑‍🚀 화면 전체를 자유롭게 떠다니는 우주인 */
+    #astronaut {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background: url('data/thumbup_astronaut.png') no-repeat center / contain;
+        z-index: 2;
+        /* 4초 동안 부드럽게 이동 및 회전하도록 설정 */
+        transition: left 4s ease-in-out, top 4s ease-in-out, transform 4s ease-in-out;
+    }
+
+    @keyframes twinkleBackground {
+        0% { opacity: 0.8; }
+        50% { opacity: 0.5; }
+        100% { opacity: 0.8; }
     }
 
     .container {
         text-align: center;
+        background: rgba(0, 0, 0, 0.4); 
+        padding: 40px;
+        border-radius: 15px;
         backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        max-width: 400px;
+        width: 90%;
+        position: relative; 
+        z-index: 10; 
     }
 
     h1 {
-        font-size: 28px;
-        letter-spacing: 2px;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 26px;
+        letter-spacing: 4px;
         margin-bottom: 30px;
+        font-weight: 900;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
 
     input {
-        padding: 12px;
+        font-family: 'Orbitron', 'Noto Sans KR', sans-serif;
+        padding: 14px;
         font-size: 18px;
-        border: none;
-        border-radius: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
         outline: none;
         text-align: center;
-        width: 200px;
+        width: 220px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        letter-spacing: 2px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+    }
+    
+    input:focus {
+        border-color: #4a90e2;
+        box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    input::placeholder {
+        font-family: 'Noto Sans KR', sans-serif;
+        color: #aaaaaa;
+        letter-spacing: 0px;
+        font-weight: 300;
     }
 
     button {
-        margin-top: 15px;
-        padding: 10px 20px;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 700;
+        margin-top: 20px;
+        padding: 12px 28px;
         font-size: 16px;
         border: none;
-        border-radius: 5px;
+        border-radius: 8px;
         background-color: #4a90e2;
         color: white;
         cursor: pointer;
+        transition: all 0.2s ease;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
     }
 
     button:hover {
         background-color: #357ABD;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(74, 144, 226, 0.5);
     }
 
     .hidden {
-        display: none;
+        display: none !important;
     }
 
     .success {
-        margin-top: 30px;
+        font-weight: 700;
+        margin-top: 20px;
         font-size: 22px;
         color: #a8ffcc;
         line-height: 1.6;
+        text-shadow: 0 0 10px rgba(168, 255, 204, 0.4);
     }
 
     .notice {
-        margin-top: 15px;
-        font-size: 14px;
-        color: #cccccc;
+        font-weight: 300;
+        margin-top: 20px;
+        font-size: 13px;
+        color: #dddddd;
+        line-height: 1.6;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 12px;
+        border-radius: 8px;
     }
 </style>
 </head>
 <body>
 
+<div id="astronaut"></div>
+
 <div class="container">
 
-    <!-- 👉 입력 UI 묶기 -->
     <div id="inputSection">
         <h1>FINAL ACCESS CODE</h1>
-        <input type="text" id="codeInput" placeholder="CODE 입력">
+        <input type="text" id="codeInput" placeholder="CODE 입력" autocomplete="off">
         <br>
         <button onclick="checkCode()">확인</button>
     </div>
 
-    <!-- 결과 영역 -->
     <div id="result" class="hidden success"></div>
 
-    <!-- 설문 -->
     <div id="surveySection" class="hidden">
         <div class="notice">
-            이어서 몰입형을 진행하실 수 있습니다. 예약된 시간에 맞춰서, 몰입형 입장구역에서 대기해주세요.
+            사용하신 종이는 종이쓰레기로 버려주시고,<br>
+            판과 종이는 반납해주세요!
+        </div>
+        <div class="notice">
+            이어서 몰입형을 진행하실 수 있습니다.<br>
+            예약하신 시간에 맞춰, 몰입형 입장구역에서 대기해주세요.
         </div>
     </div>
 
 </div>
 
 <script>
+// 🪐 우주인 무작위 이동 및 슬로우 회전 스크립트
+const astronaut = document.getElementById('astronaut');
+
+function moveAstronautRandomly() {
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    
+    const maxX = windowWidth - 250;
+    const maxY = windowHeight - 250;
+    
+    const randomX = Math.floor(Math.random() * (maxX + 50)) - 50;
+    const randomY = Math.floor(Math.random() * (maxY + 50)) - 50;
+    
+    // 👉 [수정] 회전 각도 범위를 -60도 ~ +60도로 줄여 천천히 까닥거리며 유영하듯 연출
+    const randomDegree = Math.floor(Math.random() * 120) - 60; 
+    const randomScale = (Math.random() * 0.3) + 0.8; 
+    
+    astronaut.style.left = `${randomX}px`;
+    astronaut.style.top = `${randomY}px`;
+    astronaut.style.transform = `scale(${randomScale}) rotate(${randomDegree}deg)`;
+}
+
+// 4초 주기로 끊임없이 부드럽게 무작위 이동
+moveAstronautRandomly();
+setInterval(moveAstronautRandomly, 4000);
+
+
+// 🔐 기존의 코드 확인 및 페이지 이동 기능
 function checkCode() {
-    const input = document.getElementById("codeInput").value.toUpperCase();
+    const input = document.getElementById("codeInput").value.toUpperCase().trim();
     const result = document.getElementById("result");
     const survey = document.getElementById("surveySection");
     const inputSection = document.getElementById("inputSection");
 
     if (input === "EDEN") {
-        // 👉 기존 UI 숨기기
         inputSection.classList.add("hidden");
 
-        // 👉 결과 표시
-        result.innerHTML = "우주인 선발 시험 합격을 축하합니다!";
+        result.innerHTML = "우주인 선발 시험<br>합격을 축하합니다!";
         result.classList.remove("hidden");
 
-        // 👉 설문 표시
         survey.classList.remove("hidden");
-
     } else {
         result.innerHTML = "❌ 잘못된 코드입니다.";
         result.classList.remove("hidden");
+        result.style.color = "#ff8888";
+        result.style.fontSize = "16px";
+        result.style.marginTop = "15px";
     }
 }
 
